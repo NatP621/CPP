@@ -15,7 +15,6 @@ namespace ariel {
         : num_of_node(0), num_of_edges(0), isOriented(false) {
         // Initializes a graph with no nodes and no edges and assumes it is not oriented.
     }
-    Graph::Graph(size_t n) : num_of_node(n), adjMatrix(n, std::vector<int>(n, 0)), isOriented(false) {}
 
     //// Getters ////
     int Graph::getNumOfNodes() const {
@@ -48,24 +47,13 @@ namespace ariel {
     void Graph::setIsOriented(bool oriented) {
         this->isOriented = oriented;
     }
-    void Graph::setAdjMatrix(const std::vector<std::vector<int>>& matrix) {
-        if (matrix.size() != static_cast<size_t>(this->num_of_node)) {
-            std::cerr << "Adjacency matrix size does not match the number of nodes." << std::endl;
-            return;
+    void Graph::setAdjMatrix(const std::vector<std::vector<int>>& matrix)
+    {
+        if (matrix.size() != static_cast<size_t>(this->num_of_node))
+        {
+            std::cerr << "Adjacency matrix size does not match the number of nodes." << '\n';return;
         }
         this->adjMatrix = matrix;
-    }
-    void Graph::setEdgeWeight(int u, int v, int weight) {
-        // Check if the indices are within bounds
-        if (u < 0 || u >= num_of_node || v < 0 || v >= num_of_node) {
-            throw std::out_of_range("Indices out of bounds");
-        }
-        adjMatrix[static_cast<size_t>(u)][static_cast<size_t>(v)] = weight; // Convert 'u' and 'v' to size_t
-
-        // If the graph is not oriented, update the symmetric value
-        if (!isOriented) {
-            adjMatrix[static_cast<size_t>(v)][static_cast<size_t>(u)] = weight; // Convert 'v' and 'u' to size_t
-        }
     }
 
     //// Methods ////
@@ -74,7 +62,7 @@ namespace ariel {
 
         // Handle the case of an empty matrix
         if (numRows == 0) {
-            std::cerr << "Error: The matrix is empty." << std::endl;
+            std::cerr << "Error: The matrix is empty." << '\n';
             setAdjMatrix({});
             setNumOfNodes(0);
             setNumOfEdges(0);
@@ -95,7 +83,7 @@ namespace ariel {
         // Check if the matrix is square
         for (size_t i = 0; i < numRows; ++i) {
             if (random_matrix[i].size() != numRows) {
-                std::cerr << "Invalid graph: The graph is not a square matrix." << std::endl;
+                std::cerr << "Invalid graph: The graph is not a square matrix." << '\n';
                 return;
             }
         }
@@ -128,8 +116,8 @@ namespace ariel {
         setNumOfNodes(numRows);
         setAdjMatrix(random_matrix);
     }
-    void Graph::printGraph() {
-        std::cout << "Graph with " << this->num_of_node << " vertices and " << this->num_of_edges * 2 << " edges." << std::endl;
+    void Graph::printGraph() const {
+        std::cout << "Graph with " << this->num_of_node << " vertices and " << this->num_of_edges * 2 << " edges." << '\n';
     }
 
     //// Operator Overloads ////
@@ -247,7 +235,8 @@ namespace ariel {
         return !(*this == other);
     }
     bool Graph::operator<(const Graph& other) const {
-        int this_total_weight = 0, other_total_weight = 0;
+        int this_total_weight = 0;
+        int other_total_weight = 0;
 
         // Calculate the total sum of edge weights for both graphs
         for (size_t u = 0; u < static_cast<size_t>(this->num_of_node); ++u) {
@@ -264,7 +253,7 @@ namespace ariel {
 
         if (this_total_weight < other_total_weight) {
             return true;
-        } else if (this_total_weight > other_total_weight) {
+        } if (this_total_weight > other_total_weight) {
             return false;
         }
 
@@ -272,7 +261,8 @@ namespace ariel {
         return this->num_of_node < other.num_of_node;
     }
     bool Graph::operator>(const Graph& other) const {
-        int this_total_weight = 0, other_total_weight = 0;
+        int this_total_weight = 0;
+        int other_total_weight = 0;
 
         // Calculate the total sum of edge weights for both graphs
         for (size_t u = 0; u < static_cast<size_t>(this->num_of_node); ++u) {
@@ -289,7 +279,7 @@ namespace ariel {
 
         if (this_total_weight > other_total_weight) {
             return true;
-        } else if (this_total_weight < other_total_weight) {
+        } if (this_total_weight < other_total_weight) {
             return false;
         }
 
@@ -369,7 +359,6 @@ namespace ariel {
         result_graph.loadGraph(result);
         return result_graph;
     }
-
     Graph& Graph::operator*=(int number) {
         for (auto& row : this->adjMatrix) {
             for (auto& weight : row) {
@@ -379,7 +368,6 @@ namespace ariel {
         this->loadGraph(this->adjMatrix);
         return *this;
     }
-
     Graph& Graph::operator/=(int number) {
         if (number == 0) {
             throw std::invalid_argument("Cannot divide by zero.");

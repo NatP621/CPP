@@ -1,165 +1,64 @@
-/*
- * natane.djedou@gmail.com
- */
+Graph Assignment - README
+Overview
+This project involves creating a Graph class in C++ that represents a graph using an adjacency matrix. The graph can be directed, undirected, weighted, or unweighted. Additionally, several algorithms were implemented to perform operations on the graph, and various operators were overloaded to manipulate the graph and its representations.
 
- This project is a C++ library for handling and manipulating graphs using adjacency matrices. It includes a variety of algorithms for graph analysis and manipulation, making it a powerful tool for anyone needing to work with graphs programmatically.
+Files and Their Purpose
+1. Graph.cpp
+This file contains the implementation of the Graph class. The main features and methods implemented in this file include:
 
- ## Features
+Graph Construction and Loading:
 
- - **Graph Representation**: The `Graph` class represents graphs using adjacency matrices, allowing for efficient graph manipulation and storage.
- - **Algorithms**: The `Algorithms` class provides several useful algorithms for graph analysis, such as connectivity checks.
- - **Operator Overloading**: Overloaded operators for intuitive graph manipulation, including printing graphs and matrix multiplication.
- - **Customizable and Extensible**: Easily extend the functionality of graphs and algorithms by adding new methods or modifying existing ones.
+loadGraph(const std::vector<std::vector<int>>& adjacencyMatrix): This method loads a graph from an adjacency matrix provided as input. It initializes the internal representation of the graph based on the provided matrix, allowing for directed, undirected, and weighted graphs.
+Graph Display:
 
- ## Prerequisites
+printGraph() const: This method outputs the graph's adjacency matrix to the console. It provides a clear visual representation of the graph, which is useful for debugging and understanding the graph's structure.
+Operator Overloading:
 
- Before you begin, ensure you have met the following requirements:
+Arithmetic operators (+, +=, -, -=): These operators are used to add or subtract graphs. The operations are defined for matrices of the same size.
+Comparison operators (==, !=, <, <=, >, >=): These operators compare graphs based on their structure and edge weights, following specific rules for equality and size comparison.
+Increment and Decrement operators (++, --): These operators increase or decrease all edge weights in the graph by 1.
+Scalar multiplication (*): Multiplies the weights of all edges by an integer.
+Graph multiplication (*): Defined as the multiplication of the adjacency matrices of two graphs. Only graphs of the same size can be multiplied.
+Output operator (<<): Overloaded to print the graph in a formatted manner, making the graph's structure easy to understand.
+2. Algorithms.cpp
+This file includes several algorithms for graph analysis and manipulation. The algorithms implemented are:
 
- - **C++ Compiler**: A C++14-compatible compiler (`clang++` recommended).
- - **Make**: A build tool for compiling the project.
- - **Valgrind**: For memory leak detection (optional but recommended).
- - **clang-tidy**: For static code analysis (optional).
+isConnected(Graph& g): Checks if the graph is connected. If all vertices are reachable from any vertex, it returns true; otherwise, it returns false.
 
- ## Installation
+shortestPath(Graph& g, int start, int end): Computes the shortest path between two vertices in the graph. If the graph is weighted, it finds the path with the least total weight; if unweighted, it finds the shortest path in terms of the number of edges. If no path exists, it returns -1.
 
- ### Step 1: Clone the Repository
+isContainsCycle(Graph& g): Detects if there is a cycle in the graph. If a cycle exists, it returns true; otherwise, it returns false.
 
- Clone the project repository to your local machine:
+isBipartite(Graph& g): Checks if the graph is bipartite, meaning it can be colored with two colors without two adjacent vertices sharing the same color. Returns true if the graph is bipartite, false otherwise.
 
- ```bash
- git clone <repository_url>
- cd <project_directory_name>
- ```
+negativeCycle(Graph& g): Detects if there is a negative cycle in the graph. A negative cycle is a cycle where the sum of the edge weights is negative. If such a cycle exists, it returns true; otherwise, it returns false.
 
- ### Step 2: Install Dependencies
+3. Demo.cpp
+This file contains example usages of the Graph class and its associated algorithms and operators. It demonstrates:
 
- Ensure all required dependencies are installed on your system:
+Loading graphs from different adjacency matrices.
+Performing operations like addition, subtraction, and multiplication of graphs.
+Using comparison operators to compare different graphs.
+Displaying the graphs using the overloaded output operator.
+4. Test Files
+Comprehensive test cases were written to validate the functionality of the graph class, algorithms, and operators. These tests cover:
 
- - For **Ubuntu**:
-   ```bash
-   sudo apt-get update
-   sudo apt-get install clang++ make valgrind clang-tidy
-   ```
+Edge cases for empty graphs, graphs with no edges, and fully connected graphs.
+Validation of operator overloads for various matrix sizes and types.
+Correctness of algorithm outputs for directed, undirected, weighted, and unweighted graphs.
 
- - For **MacOS**:
-   ```bash
-   brew update
-   brew install llvm make valgrind
-   ```
+//______Makefile_Commands______//
+make              # Build the project
+make run          # Run the demo executable
+make test         # Build the test executable
+./test            # Run the test executable
+make tidy         # Run clang-tidy
+make valgrind     # Run Valgrind
+make debug        # Build in debug mode
+make clean        # Clean up the project
 
- ### Step 3: Compile the Project
 
- Compile the project using the provided `Makefile`:
-
- ```bash
- make
- ```
-
- This command will build the project and generate two executables: `demo` and `test`.
-
- ## Usage
-
- ### Running the Demo
-
- To run the demo application and see the graph functionalities in action:
-
- ```bash
- ./demo
- ```
-
- ### Running the Tests
-
- To run the unit tests and verify the functionality of the project:
-
- ```bash
- make test
- ./test
- ```
-
- ### Example Code
-
- Here is a basic example of how to create and manipulate a graph:
-
- ```cpp
- #include "Graph.hpp"
- #include "Algorithms.hpp"
-
- int main() {
-     // Create a 3x3 adjacency matrix
-     std::vector<std::vector<int>> matrix = {
-         {0, 1, 0},
-         {1, 0, 1},
-         {0, 1, 0}
-     };
-
-     // Load the graph using the adjacency matrix
-     Graph g;
-     g.loadGraph(matrix);
-
-     // Print the graph
-     std::cout << g << std::endl;
-
-     // Check if the graph is connected
-     Algorithms algo;
-     bool connected = algo.isConnected(g);
-     std::cout << "Graph is connected: " << std::boolalpha << connected << std::endl;
-
-     return 0;
- }
- ```
-
- ## Project Structure
-
- The project directory includes the following files:
-
- ```
- .
- ├── src
- │   ├── Algorithms.cpp
- │   ├── Graph.cpp
- ├── include
- │   ├── Algorithms.hpp
- │   ├── Graph.hpp
- ├── test
- │   ├── Test.cpp
- │   ├── TestCounter.cpp
- │   ├── my_test.cpp
- ├── Makefile
- ├── doctest.h
- └── README.md
- ```
-
- - **`src/`**: Contains source code for the project.
- - **`include/`**: Contains header files for the project.
- - **`test/`**: Contains test files for unit testing and validation.
- - **`Makefile`**: A script for compiling and building the project.
- - **`doctest.h`**: The Doctest library header file for unit testing.
- - **`README.md`**: This README file.
-
- ## Contributing
-
- Contributions are always welcome! Here’s how you can contribute:
-
- 1. Fork the repository.
- 2. Create a new branch (`git checkout -b feature-new-feature`).
- 3. Make your changes and commit them (`git commit -m 'Add a new feature'`).
- 4. Push to the branch (`git push origin feature-new-feature`).
- 5. Open a Pull Request.
-
- ## Troubleshooting
-
- - **Compilation Errors**: Ensure your compiler is set to use C++14 or later. Double-check your environment setup and make sure all dependencies are installed.
- - **Memory Leaks**: Use Valgrind to check for memory leaks by running `valgrind ./demo` or `valgrind ./test`.
- - **Static Analysis**: Use `clang-tidy` for static code analysis to catch potential bugs and improve code quality.
-
- ## License
-
- This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
- ## Authors
-
- - **Natane Djedou** - *Initial work*
-
- ---
-
- Feel free to adjust the content as needed, add more detailed sections, or include more usage examples to make the README even more helpful for users of your project.
+Conclusion
+This project showcases the implementation of a robust graph data structure in C++ using an adjacency matrix,
+complete with various algorithms and operator overloads to manipulate and analyze graphs. The provided tests ensure the reliability and correctness of all functionalities,
+making it a comprehensive solution for graph-based operations.

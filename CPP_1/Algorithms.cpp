@@ -1,14 +1,13 @@
 /*
  * natane.djedou@gmail.com
  */
-
 #include "Algorithms.hpp"
 #include "Graph.hpp"
 #include <queue>
 #include <vector>
-#include <limits>
 #include <iostream>
 #include <algorithm>
+#include <climits>
 
 namespace ariel
 {
@@ -21,7 +20,7 @@ namespace ariel
      * @param g: A Graph object representing the graph to check.
      * @return: An integer that is 1 if the graph is connected, otherwise 0.
      */
-    int Algorithms::isConnected(Graph g) {
+    int Algorithms::isConnected(const Graph& g) {
         int numNodes = g.getNumOfNodes();
         if (numNodes == 0) {
             // An empty graph is considered not connected
@@ -32,10 +31,9 @@ namespace ariel
             if (g.getAdjMatrix()[0][0] != 0) {
                 // If the single node has a loop, it is connected
                 return 1;
-            } else {
-                // Otherwise, it is not connected
+            }                 // Otherwise, it is not connected
                 return 0;
-            }
+           
         }
 
         std::vector<bool> visited(numNodes, false);
@@ -75,7 +73,7 @@ namespace ariel
      * @param end: An integer representing the ending node.
      * @return: A string representing the shortest path, or an error message if the path does not exist.
      */
-    std::string Algorithms::shortestPath(Graph g, int start, int end) {
+    std::string Algorithms::shortestPath(const Graph& g, int start, int end) {
         int numNodes = g.getNumOfNodes();
         if (start < 0 || start >= numNodes || end < 0 || end >= numNodes) {
             return "Invalid start or end node.";
@@ -142,7 +140,7 @@ namespace ariel
                             std::cout << "->";
                         }
                     }
-                    std::cout << std::endl;
+                    std::cout << '\n';
                     return 1;
                 }
             }
@@ -200,10 +198,11 @@ namespace ariel
      * @param g: A Graph object representing the graph to check.
      * @return: A string describing the bipartition if the graph is bipartite, otherwise "false".
      */
-    std::string Algorithms::isBipartite(Graph g) {
+    std::string Algorithms::isBipartite(const Graph& g) {
         int numNodes = g.getNumOfNodes();
         std::vector<int> color(numNodes, -1);
-        std::vector<int> setA, setB;
+        std::vector<int> setA;
+        std::vector<int> setB;
 
         // Traverse each connected component of the graph
         for (int i = 0; i < numNodes; ++i) {
@@ -242,12 +241,14 @@ namespace ariel
         std::string result = "The graph is bipartite: A={";
         for (size_t i = 0; i < setA.size(); ++i) {
             result += std::to_string(setA[i]);
-            if (i < setA.size() - 1) result += ", ";
+            if (i < setA.size() - 1) { result += ", ";
+}
         }
         result += "}, B={";
         for (size_t i = 0; i < setB.size(); ++i) {
             result += std::to_string(setB[i]);
-            if (i < setB.size() - 1) result += ", ";
+            if (i < setB.size() - 1) { result += ", ";
+}
         }
         result += "}.";
 
@@ -264,34 +265,85 @@ namespace ariel
      * @param g: A Graph object representing the weighted graph to check.
      * @return: An integer that is 1 if the graph contains a negative weight cycle, otherwise 0.
      */
-    int Algorithms::negativeCycle(Graph g) {
-        int numVertices = g.getNumOfNodes();
-        if (numVertices == 0) {
-            return 0; // No vertices, so no negative cycles
+    int Algorithms::negativeCycle(const Graph &graph) {
+        // Copy the adjacency matrix from the graph
+        std::vector<std::vector<int>> originalMatrix = graph.getAdjMatrix();
+        size_t vertexCount = originalMatrix.size();
+
+        // Create a new adjacency matrix with an additional source vertex
+        std::vector<std::vector<int>> extendedMatrix(vertexCount + 1, std::vector<int>(vertexCount + 1, INT_MAX));
+
+        // Initialize the extended matrix with the source vertex and existing edges
+        size_t i = 1;
+        while (i <= vertexCount) {
+            extendedMatrix[0][i] = 0;  // Source vertex connected to every other vertex with weight 0
+            size_t j = 1;
+            while (j <= vertexCount) {
+                if (originalMatrix[i - 1][j - 1] != 0) {
+                    extendedMatrix[i][j] = originalMatrix[i - 1][j - 1];
+                } else {
+                    extendedMatrix[i][j] = INT_MAX; // Ensure unconnected paths are set to INT_MAX
+                }
+                j++;
+            }
+            i++;
         }
-        // Initialize distances to infinity, except for the source vertex (0)
-        std::vector<int> dist(numVertices, std::numeric_limits<int>::max());
-        dist[0] = 0;
-        // Relax all edges |V| - 1 times
-        for (int i = 0; i < numVertices - 1; ++i) {
-            for (int u = 0; u < numVertices; ++u) {
-                for (int v = 0; v < numVertices; ++v) {
-                    int weight = g.getEdgeWeight(u, v);
-                    if (dist[u] != std::numeric_limits<int>::max() && dist[u] + weight < dist[v]) {
-                        dist[v] = dist[u] + weight;
+
+        // Initialize distance and parent vectors
+        std::vector<int> distances(vertexCount + 1, INT_MAX);
+        std::vector<int> predecessors(vertexCount + 1, -1);
+        distances[0] = 0; // Distance to the source vertex is 0
+
+        // Perform the Bellman-Ford algorithm
+        size_t iter = 0;
+        while (iter < vertexCount) { // Run vertexCount times
+            size_t u = 0;
+            while (u <= vertexCount) {
+                size_t v = 0;
+                while (v <= vertexCount) {
+                    if (extendedMatrix[u][v] != INT_MAX && distances[u] != INT_MAX &&
+                        distances[u] + extendedMatrix[u][v] < distances[v]) {
+                        distances[v] = distances[u] + extendedMatrix[u][v];
+                        predecessors[v] = u;
                     }
+                    v++;
                 }
+                u++;
             }
+            iter++;
         }
-        // Check for negative weight cycles
-        for (int u = 0; u < numVertices; ++u) {
-            for (int v = 0; v < numVertices; ++v) {
-                int weight = g.getEdgeWeight(u, v);
-                if (dist[u] != std::numeric_limits<int>::max() && dist[u] + weight < dist[v]) {
-                    return 1; // Negative cycle detected
+
+        // Check for negative-weight cycles
+        size_t x = 0;
+        while (x <= vertexCount) {
+            size_t y = 0;
+            while (y <= vertexCount) {
+                if (extendedMatrix[x][y] != INT_MAX && distances[x] != INT_MAX &&
+                    distances[x] + extendedMatrix[x][y] < distances[y]) {
+                    // Negative cycle detected
+                    std::string cycle;
+                    std::vector<bool> visited(vertexCount + 1, false);
+                    int currentVertex = x;
+                    visited[y] = true;
+                    while (!visited[currentVertex]) {
+                        visited[currentVertex] = true;
+                        currentVertex = predecessors[currentVertex];
+                    }
+                    cycle = std::to_string(currentVertex);
+                    int nextVertex = predecessors[currentVertex];
+                    while (nextVertex != currentVertex) {
+                        cycle = std::to_string(nextVertex) + "->" + cycle;
+                        nextVertex = predecessors[nextVertex];
+                    }
+                    cycle = std::to_string(currentVertex) + "->" + cycle;
+                    std::cout << "The cycle is: " << cycle << '\n';
+                    return 1;
                 }
+                y++;
             }
+            x++;
         }
-        return 0; // No negative cycle found
+        // No negative cycle found
+        return 0;
     }
 }

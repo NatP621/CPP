@@ -1,44 +1,64 @@
+# Compiler and flags
 CXX = clang++
 CXXFLAGS = -std=c++14 -Werror
+DEBUG_FLAGS = -g -O0
 VALGRIND_FLAGS = -v --leak-check=full --show-leak-kinds=all --error-exitcode=99
 
+# Source and object files
 SOURCES = Graph.cpp Algorithms.cpp Demo.cpp Test.cpp TestCounter.cpp
-OBJECTS = $(subst .cpp,.o,$(SOURCES))
+HEADERS = Graph.hpp Algorithms.hpp
+OBJECTS = $(SOURCES:.cpp=.o)
 
-# La règle all construira tout : demo et test
-.PHONY: all clean tidy valgrind run
+# Executables
+DEMO_EXEC = demo
+TEST_EXEC = test
 
-all: demo test
+# Default rule
+.PHONY: all clean tidy valgrind run debug
+
+all: $(DEMO_EXEC) $(TEST_EXEC)
 	@echo "Build completed successfully."
 
-run: demo
+# Rule to run demo
+run: $(DEMO_EXEC)
 	@echo "Running demo..."
-	./demo
+	./$(DEMO_EXEC)
 
-demo: Demo.o Graph.o Algorithms.o
-	$(CXX) $(CXXFLAGS) Demo.o Graph.o Algorithms.o -o demo
+# Rule to build demo executable
+$(DEMO_EXEC): Demo.o Graph.o Algorithms.o
+	$(CXX) $(CXXFLAGS) $^ -o $@
 	@echo "Demo executable built."
 
-test: TestCounter.o Test.o Graph.o Algorithms.o
-	$(CXX) $(CXXFLAGS) TestCounter.o Test.o Graph.o Algorithms.o -o test
+# Rule to build test executable
+$(TEST_EXEC): TestCounter.o Test.o Graph.o Algorithms.o
+	$(CXX) $(CXXFLAGS) $^ -o $@
 	@echo "Test executable built."
 
+# Rule to run clang-tidy
 tidy:
 	@echo "Running clang-tidy..."
 	clang-tidy $(SOURCES) -checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,performance-*,portability-*,readability-*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-owning-memory --warnings-as-errors=-* --
 	@echo "Clang-tidy completed."
 
-valgrind: demo test
+# Rule to run valgrind
+valgrind: $(DEMO_EXEC) $(TEST_EXEC)
 	@echo "Running Valgrind on demo..."
-	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./demo
+	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./$(DEMO_EXEC)
 	@echo "Running Valgrind on test..."
-	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./test
+	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./$(TEST_EXEC)
 	@echo "Valgrind checks completed."
 
-%.o: %.cpp %.hpp
+# Debug build rule
+debug: CXXFLAGS += $(DEBUG_FLAGS)
+debug: $(DEMO_EXEC) $(TEST_EXEC)
+	@echo "Debug build completed."
+
+# Pattern rule for object files
+%.o: %.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+# Clean rule to remove all build artifacts
 clean:
 	@echo "Cleaning up..."
-	rm -f *.o demo test
+	rm -f $(OBJECTS) $(DEMO_EXEC) $(TEST_EXEC)
 	@echo "Cleanup completed."

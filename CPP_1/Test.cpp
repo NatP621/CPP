@@ -1,14 +1,13 @@
 /*
  * natane.djedou@gmail.com
  */
-
 #include "doctest.h"
 #include "Algorithms.hpp"
 #include "Graph.hpp"
 #include <sstream>
 #include <iostream>
 #include <vector>
-
+#include <climits>
 using namespace ariel;
 using namespace std;
 
@@ -471,7 +470,8 @@ TEST_CASE("Addition Operator (+)")
 {
     // Test 1: Addition of two non-empty graphs
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{0, 1, 2}, {1, 0, 3}, {2, 3, 0}});
         g2.loadGraph({{1, 0, 1}, {0, 1, 0}, {1, 0, 1}});
 
@@ -484,7 +484,8 @@ TEST_CASE("Addition Operator (+)")
 
     // Test 2: Addition of Empty Graphs
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
 
         Graph result = g1 + g2;
         Graph expected_result;
@@ -496,7 +497,8 @@ TEST_CASE("Addition Operator (+)")
 
     // Test 3: Addition of Graphs with Different Sizes
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{0, 1}, {1, 0}});
         g2.loadGraph({{1, 0, 1}, {0, 1, 0}, {1, 0, 1}});
 
@@ -505,7 +507,8 @@ TEST_CASE("Addition Operator (+)")
 
     // Test 4: Addition of Directed Graphs
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.setIsOriented(true);
         g2.setIsOriented(true);
 
@@ -522,7 +525,8 @@ TEST_CASE("Addition Operator (+)")
 
     // Test 5: Addition of Fully Connected Graphs
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{1, 1, 1}, {1, 1, 1}, {1, 1, 1}});
         g2.loadGraph({{2, 2, 2}, {2, 2, 2}, {2, 2, 2}});
 
@@ -535,7 +539,8 @@ TEST_CASE("Addition Operator (+)")
 
     // Test 6: Addition of Graphs with Negative Edges
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{0, -1, -2}, {-1, 0, -3}, {-2, -3, 0}});
         g2.loadGraph({{-1, 0, -1}, {0, -1, 0}, {-1, 0, -1}});
 
@@ -554,7 +559,8 @@ TEST_CASE("Addition-Assignment Operator (+=)")
 {
     // Test 1: Addition-Assignment of two non-empty graphs
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{0, 1, 2}, {1, 0, 3}, {2, 3, 0}});
         g2.loadGraph({{1, 0, 1}, {0, 1, 0}, {1, 0, 1}});
 
@@ -567,7 +573,8 @@ TEST_CASE("Addition-Assignment Operator (+=)")
 
     // Test 2: Addition-Assignment of an empty graph to another graph
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{0, 1}, {1, 0}});
         g2.loadGraph({{0, 0}, {0, 0}});  // Empty graph with the same size
 
@@ -580,7 +587,8 @@ TEST_CASE("Addition-Assignment Operator (+=)")
 
     // Test 3: Addition-Assignment of graphs with different sizes
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{0, 1}, {1, 0}});
         g2.loadGraph({{1, 0, 1}, {0, 1, 0}, {1, 0, 1}});
 
@@ -589,7 +597,8 @@ TEST_CASE("Addition-Assignment Operator (+=)")
 
     // Test 4: Addition-Assignment of directed graphs
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.setIsOriented(true);
         g2.setIsOriented(true);
 
@@ -605,7 +614,8 @@ TEST_CASE("Addition-Assignment Operator (+=)")
 
     // Test 5: Addition-Assignment with fully connected graphs
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{1, 1, 1}, {1, 1, 1}, {1, 1, 1}});
         g2.loadGraph({{2, 2, 2}, {2, 2, 2}, {2, 2, 2}});
 
@@ -618,7 +628,8 @@ TEST_CASE("Addition-Assignment Operator (+=)")
 
     // Test 6: Addition-Assignment with graphs having negative edges
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{0, -1, -2}, {-1, 0, -3}, {-2, -3, 0}});
         g2.loadGraph({{-1, 0, -1}, {0, -1, 0}, {-1, 0, -1}});
 
@@ -665,7 +676,8 @@ TEST_CASE("Subtraction Operator (-)")
 {
     // Test 1: Subtraction of two non-empty graphs
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{3, 2, 1}, {2, 3, 2}, {1, 2, 3}});
         g2.loadGraph({{1, 1, 1}, {1, 1, 1}, {1, 1, 1}});
         Graph result = g1 - g2;
@@ -676,7 +688,8 @@ TEST_CASE("Subtraction Operator (-)")
 
     // Test 2: Subtraction with negative result
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{1, 0, 0}, {0, 1, 0}, {0, 0, 1}});
         g2.loadGraph({{2, 2, 2}, {2, 2, 2}, {2, 2, 2}});
 
@@ -689,7 +702,8 @@ TEST_CASE("Subtraction Operator (-)")
 
     // Test 3: Subtraction of graphs resulting in zero
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{1, 1, 1}, {1, 1, 1}, {1, 1, 1}});
         g2.loadGraph({{1, 1, 1}, {1, 1, 1}, {1, 1, 1}});
 
@@ -702,7 +716,8 @@ TEST_CASE("Subtraction Operator (-)")
 
     // Test 4: Subtraction of graphs with different sizes
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{0, 1, 1}, {1, 0, 1}});
         g2.loadGraph({{1, 1, 1}, {1, 1, 1}, {1, 1, 1}});
 
@@ -711,7 +726,8 @@ TEST_CASE("Subtraction Operator (-)")
 
     // Test 5: Subtraction of directed graphs
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.setIsOriented(true);
         g2.setIsOriented(true);
 
@@ -728,7 +744,8 @@ TEST_CASE("Subtraction Operator (-)")
 
     // Test 6: Subtraction with negative weights
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{0, -2, -4}, {-2, 0, -6}, {-4, -6, 0}});
         g2.loadGraph({{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}});
 
@@ -747,7 +764,8 @@ TEST_CASE("Subtraction-Assignment Operator (-=)")
 {
     // Test 1: Subtraction-Assignment with two non-empty graphs
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{3, 2, 1}, {2, 3, 2}, {1, 2, 3}});
         g2.loadGraph({{1, 1, 1}, {1, 1, 1}, {1, 1, 1}});
 
@@ -760,7 +778,8 @@ TEST_CASE("Subtraction-Assignment Operator (-=)")
 
     // Test 2: Subtraction-Assignment with negative result
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{1, 0, 0}, {0, 1, 0}, {0, 0, 1}});
         g2.loadGraph({{2, 2, 2}, {2, 2, 2}, {2, 2, 2}});
 
@@ -773,7 +792,8 @@ TEST_CASE("Subtraction-Assignment Operator (-=)")
 
     // Test 3: Subtraction-Assignment resulting in zero
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{1, 1, 1}, {1, 1, 1}, {1, 1, 1}});
         g2.loadGraph({{1, 1, 1}, {1, 1, 1}, {1, 1, 1}});
 
@@ -786,7 +806,8 @@ TEST_CASE("Subtraction-Assignment Operator (-=)")
 
     // Test 4: Subtraction-Assignment of graphs with different sizes
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{0, 1, 1}, {1, 0, 1}});
         g2.loadGraph({{1, 1, 1}, {1, 1, 1}, {1, 1, 1}});
 
@@ -795,7 +816,8 @@ TEST_CASE("Subtraction-Assignment Operator (-=)")
 
     // Test 5: Subtraction-Assignment of directed graphs
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.setIsOriented(true);
         g2.setIsOriented(true);
 
@@ -812,7 +834,8 @@ TEST_CASE("Subtraction-Assignment Operator (-=)")
 
     // Test 6: Subtraction-Assignment with negative weights
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{0, -2, -4}, {-2, 0, -6}, {-4, -6, 0}});
         g2.loadGraph({{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}});
 
@@ -897,7 +920,8 @@ TEST_CASE("Equality Operator (==)")
 {
     // Test 1: Comparing two identical graphs
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{1, 2, 3}, {2, 1, 2}, {3, 2, 1}});
         g2.loadGraph({{1, 2, 3}, {2, 1, 2}, {3, 2, 1}});
 
@@ -906,7 +930,8 @@ TEST_CASE("Equality Operator (==)")
 
     // Test 2: Comparing two graphs with different weights
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{1, 2, 3}, {2, 1, 2}, {3, 2, 1}});
         g2.loadGraph({{1, 2, 4}, {2, 1, 2}, {3, 2, 1}});
 
@@ -915,7 +940,8 @@ TEST_CASE("Equality Operator (==)")
 
     // Test 3: Comparing two graphs with different sizes
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{1, 2}, {2, 1}});
         g2.loadGraph({{1, 2, 3}, {2, 1, 4}, {3, 4, 1}});
 
@@ -932,7 +958,8 @@ TEST_CASE("Equality Operator (==)")
 
     // Test 5: Comparing graphs with negative weights
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{-1, -2, -3}, {-2, -1, -2}, {-3, -2, -1}});
         g2.loadGraph({{-1, -2, -3}, {-2, -1, -2}, {-3, -2, -1}});
 
@@ -941,7 +968,8 @@ TEST_CASE("Equality Operator (==)")
 
     // Test 6: Comparing graphs with zero weights
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{0, 0, 0}, {0, 0, 0}, {0, 0, 0}});
         g2.loadGraph({{0, 0, 0}, {0, 0, 0}, {0, 0, 0}});
 
@@ -956,7 +984,8 @@ TEST_CASE("Inequality Operator (!=)")
 {
     // Test 1: Comparing two different graphs
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{1, 2, 3}, {2, 1, 2}, {3, 2, 1}});
         g2.loadGraph({{1, 2, 4}, {2, 1, 2}, {3, 2, 1}});
 
@@ -965,7 +994,8 @@ TEST_CASE("Inequality Operator (!=)")
 
     // Test 2: Comparing two graphs with different sizes
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{1, 2}, {2, 1}});
         g2.loadGraph({{1, 2, 3}, {2, 1, 4}, {3, 4, 1}});
 
@@ -982,7 +1012,8 @@ TEST_CASE("Inequality Operator (!=)")
 
     // Test 4: Comparing graphs with negative weights
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{-1, -2, -3}, {-2, -1, -2}, {-3, -2, -1}});
         g2.loadGraph({{-1, -2, -4}, {-2, -1, -2}, {-3, -2, -1}});
 
@@ -991,7 +1022,8 @@ TEST_CASE("Inequality Operator (!=)")
 
     // Test 5: Comparing graphs with zero weights
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{0, 0, 0}, {0, 0, 0}, {0, 0, 0}});
         g2.loadGraph({{0, 0, 1}, {0, 0, 0}, {0, 0, 0}});
 
@@ -1005,7 +1037,8 @@ TEST_CASE("Inequality Operator (!=)")
 TEST_CASE("Less Than Operator (<)") {
     // Test 1: Comparing two graphs with different edge weight sums
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({{0, 1, 0}, {0, 0, 2}, {0, 0, 0}});
         g2.loadGraph({{0, 1, 0}, {0, 0, 3}, {0, 0, 0}});
 
@@ -1014,7 +1047,8 @@ TEST_CASE("Less Than Operator (<)") {
 
     // Test 2: Comparing two graphs with different sizes
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({{0, 1}, {0, 0}});
         g2.loadGraph({{0, 1, 0}, {0, 0, 0}, {0, 0, 0}});
 
@@ -1023,7 +1057,8 @@ TEST_CASE("Less Than Operator (<)") {
 
     // Test 3: Comparing graphs with the same matrices but different weights
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({{0, 1, 0}, {0, 0, 2}, {0, 0, 0}});
         g2.loadGraph({{0, 1, 0}, {0, 0, 1}, {0, 0, 0}});
 
@@ -1040,7 +1075,8 @@ TEST_CASE("Less Than Operator (<)") {
 
     // Test 5: Comparing with empty graphs
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({});
         g2.loadGraph({});
 
@@ -1054,7 +1090,8 @@ TEST_CASE("Less Than Operator (<)") {
 TEST_CASE("Less Than or Equal To Operator (<=)") {
     // Test 1: Comparing two graphs with different edge weight sums
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({{0, 1, 0}, {0, 0, 2}, {0, 0, 0}});
         g2.loadGraph({{0, 1, 0}, {0, 0, 3}, {0, 0, 0}});
 
@@ -1063,7 +1100,8 @@ TEST_CASE("Less Than or Equal To Operator (<=)") {
 
     // Test 2: Comparing two graphs with the same edge weight sums
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({{0, 1, 0}, {0, 0, 2}, {0, 0, 0}});
         g2.loadGraph({{0, 1, 0}, {0, 0, 2}, {0, 0, 0}});
 
@@ -1072,7 +1110,8 @@ TEST_CASE("Less Than or Equal To Operator (<=)") {
 
     // Test 3: Comparing graphs with different sizes
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({{0, 1}, {0, 0}});
         g2.loadGraph({{0, 1, 0}, {0, 0, 0}, {0, 0, 0}});
 
@@ -1089,7 +1128,8 @@ TEST_CASE("Less Than or Equal To Operator (<=)") {
 
     // Test 5: Comparing with empty graphs
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({});
         g2.loadGraph({});
 
@@ -1103,7 +1143,8 @@ TEST_CASE("Less Than or Equal To Operator (<=)") {
 TEST_CASE("Greater Than Operator (>)") {
     // Test 1: Comparing two graphs with different edge weight sums
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({{0, 1, 0}, {0, 0, 3}, {0, 0, 0}});
         g2.loadGraph({{0, 1, 0}, {0, 0, 2}, {0, 0, 0}});
 
@@ -1112,7 +1153,8 @@ TEST_CASE("Greater Than Operator (>)") {
 
     // Test 2: Comparing two graphs with the same edge weight sums
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({{0, 1, 0}, {0, 0, 2}, {0, 0, 0}});
         g2.loadGraph({{0, 1, 0}, {0, 0, 2}, {0, 0, 0}});
 
@@ -1121,7 +1163,8 @@ TEST_CASE("Greater Than Operator (>)") {
 
     // Test 3: Comparing graphs with different sizes
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({{0, 1, 0}, {0, 0, 0}, {0, 0, 0}});
         g2.loadGraph({{0, 1}, {0, 0}});
 
@@ -1138,7 +1181,8 @@ TEST_CASE("Greater Than Operator (>)") {
 
     // Test 5: Comparing with empty graphs
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({});
         g2.loadGraph({});
 
@@ -1152,7 +1196,8 @@ TEST_CASE("Greater Than Operator (>)") {
 TEST_CASE("Greater Than or Equal To Operator (>=)") {
     // Test 1: Comparing two graphs with different edge weight sums
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({{0, 1, 0}, {0, 0, 3}, {0, 0, 0}});
         g2.loadGraph({{0, 1, 0}, {0, 0, 2}, {0, 0, 0}});
 
@@ -1161,7 +1206,8 @@ TEST_CASE("Greater Than or Equal To Operator (>=)") {
 
     // Test 2: Comparing two graphs with the same edge weight sums
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({{0, 1, 0}, {0, 0, 2}, {0, 0, 0}});
         g2.loadGraph({{0, 1, 0}, {0, 0, 2}, {0, 0, 0}});
 
@@ -1170,7 +1216,8 @@ TEST_CASE("Greater Than or Equal To Operator (>=)") {
 
     // Test 3: Comparing graphs with different sizes
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({{0, 1, 0}, {0, 0, 0}, {0, 0, 0}});
         g2.loadGraph({{0, 1}, {0, 0}});
 
@@ -1187,7 +1234,8 @@ TEST_CASE("Greater Than or Equal To Operator (>=)") {
 
     // Test 5: Comparing with empty graphs
     {
-        Graph g1, g2;
+        Graph g1;
+        Graph g2;
         g1.loadGraph({});
         g2.loadGraph({});
 
@@ -1324,7 +1372,8 @@ TEST_CASE("Postfix Increment Operator (++)")
 
     // Test 4: Comparing after incrementing a graph
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{1, 2}, {3, 4}});
 
         // Increment the edges of the first graph
@@ -1599,7 +1648,8 @@ TEST_CASE("Graph Multiplication Operator (*)")
 {
     // Test 1: Multiplication of two graphs with positive weights
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
         g2.loadGraph({{1, 0, 0}, {0, 1, 0}, {0, 0, 1}});
 
@@ -1616,7 +1666,8 @@ TEST_CASE("Graph Multiplication Operator (*)")
 
     // Test 2: Multiplication with negative weights
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{-1, -2, -3}, {-4, -5, -6}, {-7, -8, -9}});
         g2.loadGraph({{0, 1, 0}, {1, 0, 1}, {0, 1, 0}});
 
@@ -1633,7 +1684,8 @@ TEST_CASE("Graph Multiplication Operator (*)")
 
     // Test 3: Multiplication with a null graph
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{1, 2}, {3, 4}});
         g2.loadGraph({{0, 0}, {0, 0}});  // Null graph
 
@@ -1650,7 +1702,8 @@ TEST_CASE("Graph Multiplication Operator (*)")
 
     // Test 4: Multiplication of graphs with different sizes
     {
-        ariel::Graph g1, g2;
+        ariel::Graph g1;
+        ariel::Graph g2;
         g1.loadGraph({{1, 2}, {3, 4}});
         g2.loadGraph({{1, 0, 0}, {0, 1, 0}, {0, 0, 1}});
 
@@ -1848,4 +1901,46 @@ TEST_CASE("Division by Integer Operator (/=)")
         // Compare the adjacency matrices
         CHECK(empty_graph.getAdjMatrix() == empty_graph.getAdjMatrix());
     }
+}
+TEST_CASE("Graph without negative cycle") {
+    std::vector<std::vector<int>> matrix = {
+        {0, 1, 4},
+        {INT_MAX, 0, 2},
+        {INT_MAX, INT_MAX, 0}
+    };
+
+    ariel::Graph g;
+    g.loadGraph(matrix); // Load the graph with the adjacency matrix
+    REQUIRE(Algorithms::negativeCycle(g) == 0);
+}
+TEST_CASE("Undirected graph without negative cycle") {
+    std::vector<std::vector<int>> matrix = {
+        {0, 1, INT_MAX},
+        {1, 0, 2},
+        {INT_MAX, 2, 0}
+    };
+
+    ariel::Graph g;
+    g.loadGraph(matrix); // Load the graph with the adjacency matrix
+    REQUIRE(Algorithms::negativeCycle(g) == 0);
+}
+TEST_CASE("Undirected graph with negative cycle") {
+    std::vector<std::vector<int>> matrix = {
+        {0, -1, INT_MAX},
+        {-1, 0, -2},
+        {INT_MAX, -2, 0}
+    };
+
+    ariel::Graph g;
+    g.loadGraph(matrix); // Load the graph with the adjacency matrix
+    REQUIRE(Algorithms::negativeCycle(g) == 1);
+}
+TEST_CASE("Graph with a single vertex and no edges") {
+    std::vector<std::vector<int>> matrix = {
+        {0}
+    };
+
+    ariel::Graph g;
+    g.loadGraph(matrix); // Load the graph with the adjacency matrix
+    REQUIRE(Algorithms::negativeCycle(g) == 0);
 }

@@ -1,10 +1,8 @@
 /*
  * natane.djedou@gmail.com
  */
-
 #ifndef GRAPH_HPP
 #define GRAPH_HPP
-
 #include <vector>
 #include <ostream>
 
@@ -12,23 +10,15 @@ namespace ariel
 {
     class Graph
     {
-    private:
-        // Adjacency matrix to represent the graph
+        //// DATA ////
         std::vector<std::vector<int>> adjMatrix;
-
-        // Number of nodes in the graph
         int num_of_node;
-
-        // Number of edges in the graph
         int num_of_edges;
-
-        // Boolean to indicate if the graph is oriented
         bool isOriented;
 
     public:
         //// Constructor ////
         Graph();
-        Graph(size_t n);
 
         //// Getters ////
         int getNumOfNodes() const; // Returns the number of nodes
@@ -42,11 +32,10 @@ namespace ariel
         void setNumOfEdges(int edges); // Sets the number of edges
         void setIsOriented(bool oriented); // Sets whether the graph is oriented
         void setAdjMatrix(const std::vector<std::vector<int>>& matrix); // Sets the adjacency matrix
-        void setEdgeWeight(int u, int v, int weight);
 
         //// Methods ////
         void loadGraph(std::vector<std::vector<int>> random_matrix); // Loads the graph from an adjacency matrix
-        void printGraph(); // Prints the adjacency matrix of the graph
+        void printGraph() const; // Prints the adjacency matrix of the graph
 
         //// Operator Overloads ////
 

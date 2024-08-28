@@ -21,7 +21,7 @@ namespace ariel {
          * @param g: A Graph object representing the graph to check.
          * @return: An integer that is 1 if the graph is connected, otherwise 0.
          */
-        static int isConnected(Graph g);
+        static int isConnected(const Graph& g);
         /**
          * Function: shortestPath
          * Description: This function determines the shortest path between two nodes in a graph using
@@ -34,7 +34,7 @@ namespace ariel {
          * @param end: An integer representing the ending node.
          * @return: A string representing the shortest path, or an error message if the path does not exist.
          */
-        static std::string shortestPath(Graph g, int start, int end);
+        static std::string shortestPath(const Graph& g, int start, int end);
         /**
          * Function: isContainsCycle
          * Description: This function checks if the graph contains a cycle using Depth-First Search (DFS).
@@ -66,17 +66,19 @@ namespace ariel {
          * @param g: A Graph object representing the graph to check.
          * @return: A string "true" if the graph is bipartite, otherwise "false".
          */
-        static std::string isBipartite(Graph g);
-        /**
+        static std::string isBipartite(const Graph& g);
+         /**
          * Function: negativeCycle
-         * Description: This function checks if there is a negative weight cycle in a graph using the Bellman-Ford algorithm.
-         * The algorithm attempts to relax the edges of the graph to find the shortest paths.
-         * If it finds a shorter path after n-1 iterations (where n is the number of nodes), then a negative weight cycle exists in the graph.
+         * Description: This function checks if a graph contains a negative weight cycle using the Bellman-Ford algorithm.
+         * The Bellman-Ford algorithm is used to find the shortest path from a source vertex to all other vertices
+         * in a weighted graph. In addition to finding the shortest path, this algorithm can detect the existence of negative weight cycles.
+         * A negative weight cycle is a cycle in which the sum of the edge weights is negative, meaning that the path
+         * can be indefinitely reduced by traversing the cycle.
          *
-         * @param g: A Graph object representing the graph to check.
-         * @return: An integer that is 1 if a negative cycle is detected, otherwise 0.
+         * @param g: A Graph object representing the weighted graph to check.
+         * @return: An integer that is 1 if the graph contains a negative weight cycle, otherwise 0.
          */
-        static int negativeCycle(Graph g);
+         static int negativeCycle(const Graph &g);
     };
 } // namespace ariel
 
