@@ -1,1 +1,46 @@
+### Tree Container Implementation
 
+## Overview
+
+This project involves implementing a generic tree container in C++ that supports various tree traversal iterators and operations. The container represents a k-ary tree, where each node can have up to `k` children. By default, the tree is a binary tree (k=2). The container supports the following features:
+
+1. **Iterators for different tree traversal methods**:
+   - **Pre-Order Iterator**: Traverses the tree in the order: current node → left subtree → right subtree (binary trees only). For general trees, it performs a DFS traversal starting from the root.
+   - **Post-Order Iterator**: Traverses the tree in the order: left subtree → right subtree → current node (binary trees only). For general trees, it performs a DFS traversal starting from the root.
+   - **In-Order Iterator**: Traverses the tree in the order: left subtree → current node → right subtree (binary trees only). For general trees, it performs a DFS traversal starting from the root.
+   - **BFS Iterator**: Performs a breadth-first search traversal (works for general trees).
+   - **DFS Iterator**: Performs a depth-first search traversal (works for general trees).
+   - **Heap Iterator**: Converts a binary tree into a min-heap and returns iterators for the resulting heap.
+
+2. **Methods to manipulate the tree**:
+   - **add_root**: Adds a root node to the tree.
+   - **add_sub_node**: Adds a child node to a specified parent node.
+   - **begin_pre_order, end_pre_order**: Return iterators for pre-order traversal.
+   - **begin_post_order, end_post_order**: Return iterators for post-order traversal.
+   - **begin_in_order, end_in_order**: Return iterators for in-order traversal.
+   - **begin_bfs_scan, end_bfs_scan**: Return iterators for BFS traversal.
+   - **begin_dfs_scan, end_dfs_scan**: Return iterators for DFS traversal.
+   - **myHeap**: Converts a binary tree into a min-heap and returns iterators for the heap.
+
+3. **Destructor**:
+   - Cleans up all resources used by the tree.
+
+4. **GUI Printing**:
+   - Implements a graphical user interface to print the tree structure on the screen.
+
+5. **Main Program**:
+   - Demonstrates the functionality of the tree container.
+   - Includes a `Complex` class to represent complex numbers and showcases the use of the tree with this class.
+
+## Dependencies
+
+- **Qt**: For GUI implementation. [Qt for Beginners](https://wiki.qt.io/Qt_for_Beginners) and [Tutorial Video](https://www.youtube.com/watch?v=cXojtB8vS2E).
+
+## File Structure
+
+- `tree.hpp` / `tree.cpp`: The main implementation of the tree container.
+- `iterators.hpp` / `iterators.cpp`: Implementation of various iterators.
+- `heap.hpp` / `heap.cpp`: Implementation of the heap conversion.
+- `complex.hpp` / `complex.cpp`: Definition of the `Complex` class.
+- `main.cpp`: Demonstrates the usage of the tree container and `Complex` class.
+- `Makefile`: Build script to compile the project.
