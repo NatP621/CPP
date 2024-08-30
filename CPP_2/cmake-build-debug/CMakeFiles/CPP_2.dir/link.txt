@@ -1,0 +1,1 @@
+/usr/bin/clang++ -g CMakeFiles/CPP_2.dir/Demo.cpp.o -o CPP_2

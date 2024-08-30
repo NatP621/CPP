@@ -1,0 +1,3 @@
+/home/m1ubuntu/Documents/Clion/CPP/CPP_2/cmake-build-debug/CMakeFiles/CPP_2.dir
+/home/m1ubuntu/Documents/Clion/CPP/CPP_2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/m1ubuntu/Documents/Clion/CPP/CPP_2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
