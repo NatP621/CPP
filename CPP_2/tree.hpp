@@ -10,30 +10,30 @@ using std::unique_ptr;
  * @tparam T The type of data stored in the tree nodes.
  */
 template <typename T>
-class Tree
+class tree
 {
 private:
 
     /// DATA
-    unique_ptr<Node<T>> root;
+    unique_ptr<node<T>> root;
 
 public:
 
     /// CONSTRUCTOR
-    Tree() : root(nullptr) {}
-    Tree(unique_ptr<Node<T>> root_node) : root(std::move(root_node)) {}
-    Tree(T root_value) : root(std::make_unique<Node<T>>(root_value)) {}
+    tree() : root(nullptr) {}
+    tree(unique_ptr<node<T>> root_node) : root(std::move(root_node)) {}
+    tree(T root_value) : root(std::make_unique<node<T>>(root_value)) {}
 
     /// DESTRUCTOR
-    ~Tree() = default;
+    ~tree() = default;
 
     /// GETTER
-    Node<T>* get_root() const {return this->root;}
+    node<T>* get_root() const {return this->root;}
     /// SETTER
-    void set_root(unique_ptr<Node<T>> new_root) {this->root = std::move(new_root);}
+    void set_root(unique_ptr<node<T>> new_root) {this->root = std::move(new_root);}
 
     /// METHODS
-    void add_root(unique_ptr<Node<T>> new_root) {this->root = std::move(new_root);}
+    void add_root(unique_ptr<node<T>> new_root) {this->root = std::move(new_root);}
 };
 #endif // TREE_HPP
 

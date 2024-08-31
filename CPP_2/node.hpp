@@ -5,23 +5,27 @@
 #include <algorithm>
 
 template <typename T>
-class Node
+class node
 {
 private:
+
     /// DATA ///
     T data;
-    Node* parent;
-    std::vector<Node> children;
+    node* parent;
+    std::vector<node> children;
+
 public:
+
     /// CONSTRUCTEURS ///
-    Node() : data(T()), parent(nullptr), children() {}
-    Node(T data, Node* parent) : data(data), parent(parent), children() {}
+    node() : data(T()), parent(nullptr), children() {}
+    node(T data, node* parent) : data(data), parent(parent), children() {}
+
     /// GETTER ///
     T get_Data() const {return this->data;}
-    Node* get_Parent() const {return this->parent;}
-    const std::vector<Node>& get_list_of_children() const {return this->children;}
-    Node* get_Child(T data) {
-        for (Node& child : children) {
+    node* get_Parent() const {return this->parent;}
+    const std::vector<node>& get_list_of_children() const {return this->children;}
+    node* get_Child(T data) {
+        for (node& child : children) {
             if (child.get_Data() == data) {
                 return &child;  // Retourne un pointeur vers l'enfant trouvé
             }
@@ -30,7 +34,7 @@ public:
     }
     /// SETTER ///
     void set_Data(T newData) {this->data = newData;}
-    void set_Parent(Node* newParent) {
+    void set_Parent(node* newParent) {
         if (parent != nullptr) {
             // Supprimer ce nœud de l'ancien parent
             auto& siblings = parent->children;
@@ -42,16 +46,17 @@ public:
             newParent->add_Child(*this);
         }
     }
+
     /// METHODS ///
-    void add_Child(const Node& newNode) {
+    void add_Child(const node& newNode) {
         this->children.push_back(newNode);
         this->children.back().parent = this;
     }
     void add_Child(T data) {
-        Node child(data, this);
+        node child(data, this);
         children.push_back(child);
     }
-    ~Node() {clean();}
+    ~node() {clean();}
     void clean() {
         children.clear();
     }

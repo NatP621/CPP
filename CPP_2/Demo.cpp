@@ -1,21 +1,21 @@
 #include <iostream>
 #include <string>
 #include "Node.hpp"
-#include "Tree.hpp"
+#include "tree.hpp"
 
 using namespace std;
 
 int main()
 {
 
-    Node<double> root_node = Node(1.1);
-    Tree<double> tree; // Binary tree that contains doubles.
+    node<double> root_node = node(1.1);
+    tree<double> tree; // Binary tree that contains doubles.
     tree.add_root(root_node);
-    Node<double> n1 = Node(1.2);
-    Node<double> n2 = Node(1.3);
-    Node<double> n3 = Node(1.4);
-    Node<double> n4 = Node(1.5);
-    Node<double> n5 = Node(1.6);
+    node<double> n1 = node(1.2);
+    node<double> n2 = node(1.3);
+    node<double> n3 = node(1.4);
+    node<double> n4 = node(1.5);
+    node<double> n5 = node(1.6);
 
     tree.add_sub_node(root_node, n1);
     tree.add_sub_node(root_node, n2);
@@ -59,7 +59,7 @@ int main()
 
     cout << tree; // Should print the graph using GUI.
 
-    Tree<double,3> three_ary_tree; // 3-ary tree.
+    tree<double,3> three_ary_tree; // 3-ary tree.
     three_ary_tree.add_root(root_node);
     three_ary_tree.add_sub_node(root_node, n1);
     three_ary_tree.add_sub_node(root_node, n2);
