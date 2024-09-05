@@ -1,39 +1,89 @@
+// natane.djedou@gmail.com
 #ifndef TREE_HPP
 #define TREE_HPP
-#include "Node.hpp"
-#include <memory>
-using std::unique_ptr;
+#include <array>
+#include <iterator>
+#include <stack>
+#include <queue>
 
-/**
- * @brief A template class representing a Tree data structure.
- * This class implements a generic tree structure where each node can store data of any type.
- * @tparam T The type of data stored in the tree nodes.
- */
-template <typename T>
-class tree
-{
-private:
+namespace TreeNamespace {
 
-    /// DATA
-    unique_ptr<node<T>> root;
-
+template <typename T, size_t S = 2>
+class tree {
 public:
+    // DATA OF TREE
+    // node structure for tree
+    struct node {
+        // NODE DATA
+        T data;
+        std::array<node*, S> children;
+        // NODE CONSTRUCTOR
+        node();
+        node(T value);
+    };
+    // tree attributes
+    node* root;
 
-    /// CONSTRUCTOR
-    tree() : root(nullptr) {}
-    tree(unique_ptr<node<T>> root_node) : root(std::move(root_node)) {}
-    tree(T root_value) : root(std::make_unique<node<T>>(root_value)) {}
+    // TREE CONSTRUCTORS & DESTRUCTORS
+    tree();
+    ~tree();
 
-    /// DESTRUCTOR
-    ~tree() = default;
+    // METHODS
+    void deleteSubtree(node* subtree);  // Deletes all nodes in the subtree rooted at the given node
+    void add_root(node& new_root);      // Sets a new root for the tree, deleting the existing tree if it exists
+    void add_sub_node(node& parent, node& child);  // Adds a child node to the specified parent node
+    tree_Iterator myHeap(); // METHOD TO TRANSFORM THE TREE INTO A MIN-HEAP
 
-    /// GETTER
-    node<T>* get_root() const {return this->root;}
-    /// SETTER
-    void set_root(unique_ptr<node<T>> new_root) {this->root = std::move(new_root);}
+    // ITERATORS FOR TREE
+    // Pre-order iterators
+    class tree_Iterator;
+    tree_Iterator begin_pre_order();
+    tree_Iterator end_pre_order();
+    // Post-order iterators
+    tree_Iterator begin_post_order();
+    tree_Iterator end_post_order();
+    // In-order iterators
+    tree_Iterator begin_in_order();
+    tree_Iterator end_in_order();
+    // BFS scan iterators
+    tree_Iterator begin_bfs_scan();
+    tree_Iterator end_bfs_scan();
+    // DFS scan iterators (equivalent to pre-order for trees)
+    tree_Iterator begin_dfs_scan();
+    tree_Iterator end_dfs_scan();
 
-    /// METHODS
-    void add_root(unique_ptr<node<T>> new_root) {this->root = std::move(new_root);}
+
+
+    // ITERATOR CLASS FOR TREE TRAVERSAL
+    class tree_Iterator {
+    public:
+        // DATA OF ITERATOR
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = node;
+        using difference_type = std::ptrdiff_t;
+        using pointer = node*;
+        using reference = node&;
+    private:
+        node* current_pnt;
+        bool is_bfs;
+        std::stack<node*> stack;
+        std::queue<node*> queue;
+
+    public:
+        // CONSTRUCTORS OF ITERATOR
+        tree_Iterator();
+        tree_Iterator(node* root, bool is_bfs = false);
+
+        // OPERATORS OF ITERATOR
+        reference operator*() const;
+        pointer operator->() const;
+        tree_Iterator& operator++();
+        tree_Iterator operator++(int);
+        bool operator==(const tree_Iterator& other) const;
+        bool operator!=(const tree_Iterator& other) const;
+    };
+
 };
+} // namespace TreeNamespace
+class tree_Iterator;
 #endif // TREE_HPP
-
