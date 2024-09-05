@@ -859,7 +859,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "CPP_2"
+			"value" : "TreeProject"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1158,7 +1158,7 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "CPP_2_BINARY_DIR",
+			"name" : "Project_BINARY_DIR",
 			"properties" : 
 			[
 				{
@@ -1170,7 +1170,7 @@
 			"value" : "/home/ubuntu/CLionProjects/CPP/CPP_2/cmake-build-debug"
 		},
 		{
-			"name" : "CPP_2_IS_TOP_LEVEL",
+			"name" : "Project_IS_TOP_LEVEL",
 			"properties" : 
 			[
 				{
@@ -1182,7 +1182,43 @@
 			"value" : "ON"
 		},
 		{
-			"name" : "CPP_2_SOURCE_DIR",
+			"name" : "Project_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/ubuntu/CLionProjects/CPP/CPP_2"
+		},
+		{
+			"name" : "TreeProject_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/ubuntu/CLionProjects/CPP/CPP_2/cmake-build-debug"
+		},
+		{
+			"name" : "TreeProject_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "TreeProject_SOURCE_DIR",
 			"properties" : 
 			[
 				{

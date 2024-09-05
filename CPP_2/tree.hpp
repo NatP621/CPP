@@ -5,6 +5,7 @@
 #include <iterator>
 #include <stack>
 #include <queue>
+#include <SFML/Graphics.hpp>
 
 namespace TreeNamespace {
 
@@ -29,11 +30,17 @@ public:
     ~tree();
 
     // METHODS
+    node* get_root(){return this->root;}
     void deleteSubtree(node* subtree);  // Deletes all nodes in the subtree rooted at the given node
     void add_root(node& new_root);      // Sets a new root for the tree, deleting the existing tree if it exists
     void add_sub_node(node& parent, node& child);  // Adds a child node to the specified parent node
-    tree_Iterator myHeap(); // METHOD TO TRANSFORM THE TREE INTO A MIN-HEAP
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ITERATORS FOR TREE
     // Pre-order iterators
     class tree_Iterator;
@@ -51,7 +58,8 @@ public:
     // DFS scan iterators (equivalent to pre-order for trees)
     tree_Iterator begin_dfs_scan();
     tree_Iterator end_dfs_scan();
-
+    // METHOD TO TRANSFORM THE TREE INTO A MIN-HEAP
+    tree_Iterator myHeap();
 
 
     // ITERATOR CLASS FOR TREE TRAVERSAL
@@ -82,8 +90,8 @@ public:
         bool operator==(const tree_Iterator& other) const;
         bool operator!=(const tree_Iterator& other) const;
     };
-
 };
-} // namespace TreeNamespace
+};
 class tree_Iterator;
+#include "tree.tpp"
 #endif // TREE_HPP

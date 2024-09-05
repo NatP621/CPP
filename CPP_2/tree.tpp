@@ -4,7 +4,6 @@
 
 namespace TreeNamespace {
 
-
 // NODE STRUCTURE CONSTRUCTORS
 template <typename T, size_t S>
 tree<T, S>::node::node() : data(T{}) {this->children.fill(nullptr);}
@@ -128,6 +127,11 @@ void tree<T, S>::add_sub_node(node& parent, node& child) {
     }
     throw std::runtime_error("Parent already has " + std::to_string(S) + " children");
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///
+
+///
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 template <typename T, size_t S>
 typename tree<T, S>::tree_Iterator tree<T, S>::begin_pre_order() {
     return tree_Iterator(root);
@@ -199,7 +203,6 @@ typename tree<T, S>::tree_Iterator tree<T, S>::myHeap() {
     // Return iterators for the resulting heap
     return begin_bfs_scan();
 }
-
 
 } // namespace TreeNamespace
 #endif // TREE_TPP
