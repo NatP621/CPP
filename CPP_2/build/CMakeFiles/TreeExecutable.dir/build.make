@@ -92,6 +92,9 @@ TreeExecutable_EXTERNAL_OBJECTS =
 
 TreeExecutable: CMakeFiles/TreeExecutable.dir/main.cpp.o
 TreeExecutable: CMakeFiles/TreeExecutable.dir/build.make
+TreeExecutable: /usr/lib/aarch64-linux-gnu/libsfml-graphics.so.2.5.1
+TreeExecutable: /usr/lib/aarch64-linux-gnu/libsfml-window.so.2.5.1
+TreeExecutable: /usr/lib/aarch64-linux-gnu/libsfml-system.so.2.5.1
 TreeExecutable: CMakeFiles/TreeExecutable.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/CLionProjects/CPP/CPP_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable TreeExecutable"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/TreeExecutable.dir/link.txt --verbose=$(VERBOSE)

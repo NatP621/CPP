@@ -859,7 +859,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "TreeProject"
+			"value" : "TreeExecutable"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1183,6 +1183,66 @@
 		},
 		{
 			"name" : "Project_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/ubuntu/CLionProjects/CPP/CPP_2"
+		},
+		{
+			"name" : "SFML_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for SFML."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/usr/lib/aarch64-linux-gnu/cmake/SFML"
+		},
+		{
+			"name" : "SFML_DOC_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a file."
+				}
+			],
+			"type" : "PATH",
+			"value" : "SFML_DOC_DIR-NOTFOUND"
+		},
+		{
+			"name" : "TreeExecutable_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/ubuntu/CLionProjects/CPP/CPP_2/cmake-build-debug"
+		},
+		{
+			"name" : "TreeExecutable_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "TreeExecutable_SOURCE_DIR",
 			"properties" : 
 			[
 				{

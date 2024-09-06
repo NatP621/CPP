@@ -17,7 +17,7 @@ public:
     struct node {
         // NODE DATA
         T data;
-        std::array<node*, S> children;
+        std::array<node*, S> childrens;
         // NODE CONSTRUCTOR
         node();
         node(T value);
@@ -34,13 +34,9 @@ public:
     void deleteSubtree(node* subtree);  // Deletes all nodes in the subtree rooted at the given node
     void add_root(node& new_root);      // Sets a new root for the tree, deleting the existing tree if it exists
     void add_sub_node(node& parent, node& child);  // Adds a child node to the specified parent node
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    void drawTree(sf::RenderWindow &window,node* node,float x, float y, float xOffset, float yOffset);
+    void draw(node* node);
 
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ITERATORS FOR TREE
     // Pre-order iterators
     class tree_Iterator;
@@ -91,6 +87,7 @@ public:
         bool operator!=(const tree_Iterator& other) const;
     };
 };
+
 };
 class tree_Iterator;
 #include "tree.tpp"

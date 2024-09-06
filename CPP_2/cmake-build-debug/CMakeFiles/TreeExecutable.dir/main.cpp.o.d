@@ -228,4 +228,6 @@ CMakeFiles/TreeExecutable.dir/main.cpp.o: \
  /usr/include/SFML/Graphics/Sprite.hpp \
  /usr/include/SFML/Graphics/Text.hpp \
  /usr/include/SFML/Graphics/VertexBuffer.hpp \
- /home/ubuntu/CLionProjects/CPP/CPP_2/tree.tpp
+ /home/ubuntu/CLionProjects/CPP/CPP_2/tree.tpp \
+ /usr/include/c++/11/iostream /usr/include/c++/11/istream \
+ /usr/include/c++/11/bits/istream.tcc

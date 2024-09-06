@@ -125,6 +125,26 @@
 			"isCMake" : true,
 			"isExternal" : true,
 			"path" : "/opt/CLion/CLion-2024.2.0.1-aarch64/clion-2024.2.0.1/bin/cmake/linux/aarch64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/usr/lib/aarch64-linux-gnu/cmake/SFML/SFMLConfigVersion.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/usr/lib/aarch64-linux-gnu/cmake/SFML/SFMLConfig.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/usr/lib/aarch64-linux-gnu/cmake/SFML/SFMLSharedTargets.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/usr/lib/aarch64-linux-gnu/cmake/SFML/SFMLSharedTargets-none.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/usr/lib/aarch64-linux-gnu/cmake/SFML/SFMLConfigDependencies.cmake"
 		}
 	],
 	"kind" : "cmakeFiles",

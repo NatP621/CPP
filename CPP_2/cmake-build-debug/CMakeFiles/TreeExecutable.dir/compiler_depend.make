@@ -188,6 +188,7 @@ CMakeFiles/TreeExecutable.dir/main.cpp.o: /home/ubuntu/CLionProjects/CPP/CPP_2/m
   /usr/include/c++/11/bits/hash_bytes.h \
   /usr/include/c++/11/bits/invoke.h \
   /usr/include/c++/11/bits/ios_base.h \
+  /usr/include/c++/11/bits/istream.tcc \
   /usr/include/c++/11/bits/locale_classes.h \
   /usr/include/c++/11/bits/locale_classes.tcc \
   /usr/include/c++/11/bits/locale_conv.h \
@@ -257,6 +258,8 @@ CMakeFiles/TreeExecutable.dir/main.cpp.o: /home/ubuntu/CLionProjects/CPP/CPP_2/m
   /usr/include/c++/11/initializer_list \
   /usr/include/c++/11/ios \
   /usr/include/c++/11/iosfwd \
+  /usr/include/c++/11/iostream \
+  /usr/include/c++/11/istream \
   /usr/include/c++/11/iterator \
   /usr/include/c++/11/locale \
   /usr/include/c++/11/map \
@@ -337,6 +340,8 @@ CMakeFiles/TreeExecutable.dir/main.cpp.o: /home/ubuntu/CLionProjects/CPP/CPP_2/m
 
 /usr/include/c++/11/locale:
 
+/usr/include/c++/11/istream:
+
 /usr/include/aarch64-linux-gnu/bits/types/struct_timeval.h:
 
 /usr/include/aarch64-linux-gnu/bits/types/struct_timespec.h:
@@ -388,8 +393,6 @@ CMakeFiles/TreeExecutable.dir/main.cpp.o: /home/ubuntu/CLionProjects/CPP/CPP_2/m
 /usr/include/SFML/Window/ContextSettings.hpp:
 
 /usr/include/c++/11/cstdio:
-
-/usr/include/aarch64-linux-gnu/bits/sched.h:
 
 /usr/include/aarch64-linux-gnu/bits/pthread_stack_min-dynamic.h:
 
@@ -498,6 +501,12 @@ CMakeFiles/TreeExecutable.dir/main.cpp.o: /home/ubuntu/CLionProjects/CPP/CPP_2/m
 /usr/include/SFML/System/ThreadLocalPtr.hpp:
 
 /usr/include/aarch64-linux-gnu/bits/uintn-identity.h:
+
+/usr/include/c++/11/iterator:
+
+/usr/include/c++/11/bits/range_access.h:
+
+/usr/include/c++/11/iostream:
 
 /usr/include/SFML/Graphics/Glyph.hpp:
 
@@ -763,6 +772,10 @@ CMakeFiles/TreeExecutable.dir/main.cpp.o: /home/ubuntu/CLionProjects/CPP/CPP_2/m
 
 /usr/include/c++/11/bits/ios_base.h:
 
+/usr/include/aarch64-linux-gnu/bits/sched.h:
+
+/usr/include/c++/11/bits/istream.tcc:
+
 /usr/include/c++/11/bits/locale_classes.h:
 
 /usr/include/c++/11/bits/exception.h:
@@ -848,10 +861,6 @@ CMakeFiles/TreeExecutable.dir/main.cpp.o: /home/ubuntu/CLionProjects/CPP/CPP_2/m
 /usr/include/c++/11/bits/stl_uninitialized.h:
 
 /usr/include/c++/11/bits/unique_ptr.h:
-
-/usr/include/c++/11/bits/range_access.h:
-
-/usr/include/c++/11/iterator:
 
 /usr/include/c++/11/bits/uses_allocator.h:
 

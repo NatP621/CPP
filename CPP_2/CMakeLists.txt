@@ -1,18 +1,13 @@
-cmake_minimum_required(VERSION 3.14)
-project(TreeProject)
+cmake_minimum_required(VERSION 3.10)
+project(TreeExecutable)
 
-# Utilisation du standard C++14
 set(CMAKE_CXX_STANDARD 14)
 
-# Ajout des fichiers sources et headers (les headers sont optionnels pour la compilation mais utiles pour les IDE)
-set(SOURCES main.cpp tree.hpp tree.tpp)
+# Ajouter les fichiers sources
+add_executable(TreeExecutable main.cpp)
 
-# Création de l'exécutable
-add_executable(TreeExecutable ${SOURCES})
+# Trouver SFML (assurez-vous que SFML est installé sur votre système)
+find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 
-# Si vous souhaitez lier des bibliothèques supplémentaires, vous pouvez ajouter les lignes ci-dessous
-# Par exemple, pour lier Qt, Boost, etc.
-# target_link_libraries(TreeExecutable <library_name>)
-
-# Ajoutez des répertoires supplémentaires à inclure si nécessaire
-# target_include_directories(TreeExecutable PRIVATE path_to_includes)
+# Lier SFML à votre projet
+target_link_libraries(TreeExecutable sfml-graphics sfml-window sfml-system)
