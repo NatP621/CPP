@@ -8,15 +8,32 @@ namespace TreeNamespace {
 
 // NODE STRUCTURE CONSTRUCTORS
 template <typename T, size_t S>
-tree<T, S>::node::node() : data(T{}) {this->childrens.fill(nullptr);}
+tree<T, S>::node::node() : data(T{}) {
+    for (auto& child : childrens) {
+        child = nullptr;
+    }
+}
 template <typename T, size_t S>
-tree<T, S>::node::node(T value) : data(value) {this->childrens.fill(nullptr);}
+tree<T, S>::node::node(T value):data(value) {
+    for (auto& child : childrens) {
+        child = nullptr;
+    }
+}
+template <typename T, size_t S>
+tree<T, S>::node::~node() {
+   for (auto& child : childrens) {
+       if (child != nullptr) {
+           delete child;
+           child = nullptr;
+       }
+   }
+}
 
 // TREE CLASS CONSTRUCTORS & DESTRUCTOR
 template <typename T, size_t S>
 tree<T, S>::tree() : root(nullptr) {}
 template <typename T, size_t S>
-tree<T, S>::~tree() {deleteSubtree(root);}
+tree<T, S>::~tree() {delete root; }
 
 // tree_Iterator CONSTRUCTORS
 template <typename T, size_t S>
@@ -95,102 +112,100 @@ bool tree<T, S>::tree_Iterator::operator!=(const tree_Iterator& other) const {
 
 // TREE METHODS
 template <typename T, size_t S>
-void tree<T, S>::deleteSubtree(node* subtree) {
-    if (!subtree) return;
-    for (auto child : subtree->childrens) {
-        deleteSubtree(child);
-    }
-    delete subtree;
-}
+typename tree<T, S>::node* tree<T, S>::get_root() {return this->root;}
 template <typename T, size_t S>
 void tree<T, S>::add_root(node& new_root) {
     if (this->root != nullptr) {
-        deleteSubtree(root);
+        delete this->root;
+        this->root = nullptr;
     }
     this->root = &new_root;
 }
 template <typename T, size_t S>
 void tree<T, S>::add_sub_node(node& parent, node& child) {
     for (size_t i = 0; i < S; ++i) {
-        if (parent.children[i] == nullptr) {
-            parent.children[i] = &child;
+        if (parent.childrens[i] == nullptr) {
+            parent.childrens[i] = &child;
             return;
         }
     }
-    throw std::runtime_error("Parent already has " + std::to_string(S) + " children");
+    std::cerr << "Warning: No free space, replacing the first child!" << std::endl;
+    delete parent.childrens[0];
+    parent.childrens[0] = &child;
 }
 template <typename T, size_t S>
-void drawTree(sf::RenderWindow &window,typename tree<T, S>::node* node,float x, float y, float xOffset, float yOffset) {
-
+void drawTree(sf::RenderWindow &window, typename tree<T, S>::node* node, float x, float y, float xOffset, float yOffset) {
     // If the current node is null, return immediately (base case for recursion)
     if (!node) { return; }
-
     // Set the radius of the node (circle shape)
     const float nodeRadius = 25.0f;
     sf::CircleShape circle(nodeRadius);
-
-    // Set the fill color of the circle (node)
-    circle.setFillColor(sf::Color::Black);
-
-    // Set the position of the circle in the window (coordinates x, y)
-    circle.setPosition(x, y);
-
+    circle.setFillColor(sf::Color::Black); // Set the fill color of the node
+    circle.setPosition(x, y);              // Set the position of the circle
+    // Draw the current node (circle)
+    window.draw(circle);
+    // Format the data of the current node
+    std::ostringstream ss;
+    // Check if the data is numeric (int, float, double, etc.)
+    if (std::is_arithmetic<T>::value) {
+        ss << std::fixed << std::setprecision(5) << node->data;
+    } else {
+        ss << node->data; // Default formatting for non-numeric types
+    }
+    // Create a text object to display the data in the node
+    sf::Font font;
+    if (!font.loadFromFile("../Arial.ttf")) {
+        // Handle the error if the font cannot be loaded
+        std::cerr << "Error loading Arial.ttf" << std::endl;
+    }
+    sf::Text text;
+    text.setFont(font);
+    text.setString(ss.str());               // Set the formatted data as the text string
+    text.setCharacterSize(14);              // Set the character size
+    text.setFillColor(sf::Color::White);    // Set the text color
+    text.setPosition(x + nodeRadius / 2, y + nodeRadius / 2); // Position the text on the node
+    // Draw the data (text) inside the node
+    window.draw(text);
     // Track the index of the child node being drawn
     int childIndex = 0;
-
-    // Loop through all possible children (since the tree has S slots for children)
+    // Loop through all possible children
     for (size_t i = 0; i < S; ++i) {
-        if (node->childrens[i]) { // If the child at index i exists (not null)
-
-            // Calculate the total number of children
+        if (node->childrens[i]) { // If the child at index i exists
             int numChildren = 0;
             for (size_t j = 0; j < S; ++j) {
-                if (node->childrens[j]) numChildren++; // Increment if child exists
+                if (node->childrens[j]) numChildren++;
             }
-
             // Calculate the position of the current child
             float childX = x - (xOffset * (numChildren - 1)) / 2.0f + childIndex * xOffset;
             float childY = y + yOffset;
-
-            // Draw a line from the parent node (x, y) to the child node (childX, childY)
+            // Draw a line from the parent node to the child node
             sf::Vertex line[] = {
-                sf::Vertex(sf::Vector2f(x + nodeRadius, y + nodeRadius), sf::Color::Black),  // Parent node position
-                sf::Vertex(sf::Vector2f(childX + nodeRadius, childY + nodeRadius), sf::Color::Black)  // Child node position
+                sf::Vertex(sf::Vector2f(x + nodeRadius, y + nodeRadius), sf::Color::Black),
+                sf::Vertex(sf::Vector2f(childX + nodeRadius, childY + nodeRadius), sf::Color::Black)
             };
             window.draw(line, 2, sf::Lines); // Draw the connecting line
-
             // Recursively draw the subtree starting from the current child
             drawTree<T, S>(window, node->childrens[i], childX, childY, xOffset / 1.5f, yOffset);
-
-            // Increment the child index to correctly position the next child
-            ++childIndex;
+            ++childIndex; // Increment the child index for the next child
         }
     }
-
-    // After all children are drawn, draw the parent node (circle)
-    window.draw(circle);
 }
 template <typename T, size_t S>
-void draw(typename tree<T, S>::node* node) {
-
-    // Create a render window with a specified width (900) and height (800)
+void draw(tree<T, S>& my_tree) {
+    // Get the root node from the tree
+    typename tree<T, S>::node* root_node = my_tree.get_root();
+    // Create a render window with specified width (900) and height (800)
     sf::RenderWindow window(sf::VideoMode(900, 800), "C++ TREE");
-
-    // Main loop that keeps the window open
+    // Main loop to keep the window open
     while (window.isOpen()) {
-
         sf::Event temp;  // Temporary variable to store events
-
         // Process all events (e.g., close event)
         while (window.pollEvent(temp)) {
-            if (temp.type == sf::Event::Closed) window.close();  // Close window if the event is 'Closed'
+            if (temp.type == sf::Event::Closed) window.close();  // Close window if 'Closed' event
         }
-
         window.clear(sf::Color::White);  // Clear the window with a white background
-
         // Call the drawTree function to recursively draw the entire tree starting from the root
-        drawTree<T, S>(window, node, 450, 50, 200, 100);
-
+        drawTree<T, S>(window, root_node, 450, 50, 200, 100);
         window.display();  // Display the updated window contents
     }
 }
@@ -214,8 +229,6 @@ typename tree<T, S>::tree_Iterator tree<T, S>::end_post_order() {
 }
 template <typename T, size_t S>
 typename tree<T, S>::tree_Iterator tree<T, S>::begin_in_order() {
-    // Specific implementation for in-order
-    // Placeholder
     return tree_Iterator();
 }
 template <typename T, size_t S>

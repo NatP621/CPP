@@ -117,41 +117,41 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named TreeExecutable
+# Target rules for targets named test_tree
 
 # Build rule for target.
-TreeExecutable: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TreeExecutable
-.PHONY : TreeExecutable
+test_tree: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_tree
+.PHONY : test_tree
 
 # fast build rule for target.
-TreeExecutable/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TreeExecutable.dir/build.make CMakeFiles/TreeExecutable.dir/build
-.PHONY : TreeExecutable/fast
+test_tree/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/build
+.PHONY : test_tree/fast
 
-main.o: main.cpp.o
-.PHONY : main.o
+Test.o: Test.cpp.o
+.PHONY : Test.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TreeExecutable.dir/build.make CMakeFiles/TreeExecutable.dir/main.cpp.o
-.PHONY : main.cpp.o
+Test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/Test.cpp.o
+.PHONY : Test.cpp.o
 
-main.i: main.cpp.i
-.PHONY : main.i
+Test.i: Test.cpp.i
+.PHONY : Test.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TreeExecutable.dir/build.make CMakeFiles/TreeExecutable.dir/main.cpp.i
-.PHONY : main.cpp.i
+Test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/Test.cpp.i
+.PHONY : Test.cpp.i
 
-main.s: main.cpp.s
-.PHONY : main.s
+Test.s: Test.cpp.s
+.PHONY : Test.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TreeExecutable.dir/build.make CMakeFiles/TreeExecutable.dir/main.cpp.s
-.PHONY : main.cpp.s
+Test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_tree.dir/build.make CMakeFiles/test_tree.dir/Test.cpp.s
+.PHONY : Test.cpp.s
 
 # Help Target
 help:
@@ -161,10 +161,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... TreeExecutable"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... test_tree"
+	@echo "... Test.o"
+	@echo "... Test.i"
+	@echo "... Test.s"
 .PHONY : help
 
 
