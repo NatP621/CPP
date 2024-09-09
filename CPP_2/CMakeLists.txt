@@ -1,37 +1,27 @@
-# Minimum version of CMake required
 cmake_minimum_required(VERSION 3.10)
 
-# Project name and version
-project(TreeDrawing VERSION 1.0)
+# Nom du projet
+project(CPP_Project)
 
-# Set C++ standard
+# Utilisation de la norme C++14
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Enable compile warnings for all files
-set(COMMON_COMPILE_OPTIONS "-Wall" "-Wextra" "-Wpedantic")
-
-# Define the source files
+# Ajout des fichiers sources
 set(SOURCES
         Test.cpp
         tree.hpp
-        tree.tpp
+        Complex.hpp
+        doctest.h
 )
 
-# Create the executable target
-add_executable(test_tree ${SOURCES})
-
-# Link SFML libraries
+# Recherche des packages SFML requis
 find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
-target_link_libraries(test_tree PRIVATE sfml-graphics sfml-window sfml-system)
 
-# Set include directories
-target_include_directories(test_tree PRIVATE ${CMAKE_SOURCE_DIR})
+# Ajout de l'exécutable
+add_executable(${PROJECT_NAME} ${SOURCES})
 
-# Apply common compile options for better code safety
-target_compile_options(test_tree PRIVATE ${COMMON_COMPILE_OPTIONS})
+# Lien avec les bibliothèques SFML
+target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
 
-# Print project info after build configuration
-message(STATUS "Project: ${PROJECT_NAME}")
-message(STATUS "Version: ${PROJECT_VERSION}")
-message(STATUS "C++ Standard: C++${CMAKE_CXX_STANDARD}")
+# Ajout des chemins d'inclusion (inclure le dossier courant)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
