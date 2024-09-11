@@ -1,0 +1,164 @@
+// =============================================================================
+// Project: Implementation of a template class for a generic n-ary tree
+// File: tree.hpp
+// Author: natane.djedou@gmail.com
+// Date: September 2024
+// =============================================================================
+
+/*
+This file presents the complete implementation of a `tree` class that allows
+the creation of generic n-ary trees. This class is designed to work with any
+type of data. It is fully templated and supports various features such as
+adding sub-nodes, replacing the root, multiple traversal types (pre-order,
+post-order, BFS, DFS), and includes a method for drawing the tree using SFML.
+*/
+
+// =============================================================================
+// # Implementation of a Template Class for a Generic N-ary Tree
+//
+// ## Introduction
+//
+// This project provides a generic implementation of an **n-ary tree** template
+// class in C++. The `tree` class allows for the creation and manipulation of
+// trees where each node can have a flexible number of children, determined by
+// the template parameter `S`. Utilizing C++ templates, this class is versatile
+// and can be applied to numerous cases, such as managing hierarchical data or
+// modeling decision trees.
+//
+// Additionally, optional graphical representation is included using the
+// **SFML** library, enabling visual rendering of the tree structure.
+//
+// ## Features
+//
+// ### 1. **Dynamic Node Addition and Manipulation**
+//
+// - **Dynamic addition of children**: Tree nodes can have up to `S` children,
+//   defined when the tree is instantiated. You can add children dynamically.
+//
+// - **Root modification**: The root of the tree can be replaced. The old root
+//   can either be removed or added as a child of the new root.
+//
+// - **Child management**: It is possible to retrieve, modify, or traverse the
+//   children of any node.
+//
+// ### 2. **Tree Traversal Methods**
+//
+// The tree supports various traversal methods, useful in different scenarios:
+//
+// - **Pre-order Traversal (Root-Left-Right)**: Visits the current node first,
+//   then its children. This traversal is useful when you need to process the
+//   root before the leaves.
+//
+// - **Post-order Traversal (Left-Right-Root)**: Visits all children before
+//   processing the current node. This is suitable when child nodes need to be
+//   processed before the parent node.
+//
+// - **In-order Traversal**: For binary trees, this traversal visits the left
+//   child, then the root, followed by the right child.
+//
+// - **Breadth-First Search (BFS)**: Traverses the tree level by level, starting
+//   from the root, exploring each level before moving to the next.
+//
+// - **Depth-First Search (DFS)**: Explores as deeply as possible down each
+//   branch before backtracking.
+//
+// ### 3. **Graphical Representation with SFML (Optional)**
+//
+// - **Visual rendering of the tree**: Using SFML, you can render the tree
+//   structure graphically in a window. This is particularly useful for
+//   educational tools, simulations, or user interfaces that require tree
+//   structures.
+//
+// - **Customizable appearance**: The appearance of nodes (color, text, etc.)
+//   and how connections are drawn can be easily customized.
+//
+// ### 4. **Support for Iterators in Traversal**
+//
+// The tree class includes an integrated iterator supporting various traversal
+// strategies. You can use this to traverse the tree in pre-order, post-order,
+// in-order, DFS, or BFS.
+//
+// ### 5. **Binary Heap Transformation (Min-Heap)**
+//
+// For binary trees, the class includes a method to transform the tree into a
+// **min-heap**, ensuring that the smallest element is always at the root.
+//
+// ## Installation
+//
+// ### Prerequisites
+//
+// - **C++ Compiler**: The code requires a C++11 or later compliant compiler
+//   (e.g., `g++`, `clang++`).
+// - **SFML (optional)**: You will need to install the SFML library if you want
+//   to use the graphical rendering feature.
+// - **Arial Font**: The project requires the `arial.ttf` font file for graphical
+//   rendering with SFML. Make sure the font file is present in the project directory.
+//
+// ### Compilation Instructions
+//
+// 1. **Clone the repository**:
+//
+//
+//    git clone https://github.com/NatanePartouche/CPP.git
+//
+//
+// 2. **Navigate to the project directory**:
+//
+//
+//    cd cd /CPP/CPP_2
+//
+//
+// ## Compilation and Execution
+//
+// ### 3. **Compiling and Running the Main Program**:
+//
+//  - To compile the project and run the main program, use the following command:
+//
+//    make tree
+//
+//
+// The provided Makefile will handle the compilation and execution of the program.
+// Make sure that all necessary dependencies, such as SFML and the `arial.ttf` font, are installed if you want to use graphical features.
+//
+// ### 4. **Compiling and Running Tests**:
+//
+// - If you want to compile and run the `Test.cpp` class (which may contain your test cases or validation logic),
+//   use the following command:
+//
+//    make test
+//
+//  This command will compile `Test.cpp` and run the associated executable. Make sure that all necessary dependencies are in place for this compilation as well.
+//
+//  Additionally, this project uses the `doctest.h` library for running unit tests. Ensure that the `doctest.h` file is included in your project directory, as it provides a lightweight framework for testing the `tree` class and its associated functionalities.
+//
+// ### 5. **Cleaning the Project**:
+//
+// - To remove the compiled executables and any other generated files, use the following command:
+//
+//    make clean
+//
+//  This command will remove the `tree` and `test` executables, as well as any other temporary files generated during the compilation process.
+//
+// ## Usage of Complex.hpp
+//
+// This project also includes the `Complex.hpp` file, which defines a class for managing complex numbers. The `tree` class is designed to handle any type of data, including instances of the `Complex` class. This allows you to create and manipulate trees where each node contains complex number data. The `main.cpp` file includes examples of how to work with the `tree` class and the `Complex` class together.
+//
+// ## Author
+//
+// This project was developed by Natane Partouche  (mailto:natane.djedou@gmail.com).
+//
+// ## License
+//
+// This project is licensed under the MIT License. See the `LICENSE` file for
+// more details.
+//
+//   ### Explanation
+//
+//   - The `README.md` starts by introducing the project, outlining its key features, and guiding users on how to install and use the tree structure.
+//   - The template class description is more technical, explaining the potential use cases of the class.
+//   - The file includes a comprehensive list of features such as dynamic node manipulation, various tree traversal methods, optional graphical rendering using SFML, and iterator support.
+//   - There is also a section on installation, highlighting both the required dependencies and the steps to compile and run the project, with and without SFML.
+//   - The author's information and license details are provided at the end, giving credit and ensuring proper use of the code.
+//
+//   This combination effectively explains the core of the project while providing guidance on how to install, extend, and contribute to the tree structure.
+// =============================================================================

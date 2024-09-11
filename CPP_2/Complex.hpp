@@ -1,5 +1,6 @@
 #ifndef COMPLEX_HPP
 #define COMPLEX_HPP
+#include <iostream>
 
 class Complex {
 private:
@@ -52,6 +53,20 @@ public:
     // Inequality operator
     bool operator!=(const Complex& other) const {
         return !(*this == other);
+    }
+
+
+    // Ajoutez cette méthode pour comparer deux objets Complex
+    bool operator>(const Complex& other) const {
+        // Comparaison par la norme du nombre complexe (racine carrée de la somme des carrés des parties réelle et imaginaire)
+        return (this->real * this->real + this->imag * this->imag) >
+               (other.real * other.real + other.imag * other.imag);
+    }
+
+    // Vous pouvez aussi ajouter d'autres opérateurs si nécessaire
+    bool operator<(const Complex& other) const {
+        return (this->real * this->real + this->imag * this->imag) <
+               (other.real * other.real + other.imag * other.imag);
     }
 
     // Stream output operator

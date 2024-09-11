@@ -1,3 +1,0 @@
-/home/ubuntu/CLionProjects/CPP/CPP_2/cmake-build-release/CMakeFiles/CPP_Project.dir
-/home/ubuntu/CLionProjects/CPP/CPP_2/cmake-build-release/CMakeFiles/edit_cache.dir
-/home/ubuntu/CLionProjects/CPP/CPP_2/cmake-build-release/CMakeFiles/rebuild_cache.dir
